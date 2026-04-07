@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sistem Klasifikasi Tingkat Stres Siswa</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+      <div class="logo">Stress Assessment System</div>
+
+      <div class="nav-menu">
+        <button onclick="navigate('home')">Home</button>
+        <button onclick="navigate('student')">Portal Siswa</button>
+        <button onclick="navigate('teacher')">Portal Guru</button>
+      </div>
+    </nav>
+
+    <!-- ================= HOMEPAGE ================= -->
+
+    <section id="home" class="page active">
+      <div class="hero">
+        <h1>Sistem Klasifikasi Tingkat Stres Siswa</h1>
+
+        <p>Sistem ini membantu sekolah dalam melakukan deteksi dini tingkat stres siswa dengan memanfaatkan kuesioner psikologis dan model machine learning.</p>
+      </div>
+
+      <div class="info-container">
+        <div class="card">
+          <h3>Apa itu Stres?</h3>
+
+          <p>Stres merupakan respon alami tubuh terhadap tekanan fisik maupun psikologis. Pada siswa, stres dapat muncul akibat tekanan akademik, lingkungan sosial, serta kekhawatiran terhadap masa depan.</p>
+        </div>
+
+        <div class="card">
+          <h3>Stres Akademik</h3>
+
+          <p>Stres akademik merupakan tekanan yang muncul akibat tuntutan belajar, tugas sekolah, ujian, serta ekspektasi yang tinggi dari lingkungan sekitar.</p>
+        </div>
+
+        <div class="card">
+          <h3>Ciri-ciri Stres</h3>
+
+          <ul>
+            <li>Kesulitan tidur</li>
+            <li>Mudah marah</li>
+            <li>Menurunnya konsentrasi</li>
+            <li>Merasa cemas berlebihan</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Cara Mencegah Stres</h3>
+
+          <ul>
+            <li>Manajemen waktu belajar</li>
+            <li>Olahraga teratur</li>
+            <li>Istirahat yang cukup</li>
+            <li>Dukungan dari keluarga dan teman</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PORTAL SISWA ================= -->
+
+    <section id="student" class="page">
+      <div class="form-container">
+        <h2>Form Penilaian Tingkat Stres Siswa</h2>
+
+        <p>Silakan isi kuesioner berikut sesuai dengan kondisi yang Anda rasakan. Jawaban Anda akan digunakan untuk membantu guru memahami kondisi siswa.</p>
+
+        <form id="studentForm">
+          <h3>Identitas Siswa</h3>
+
+          <label>Nama</label>
+          <input type="text" id="name" required />
+
+          <label>Kelas</label>
+          <input type="text" id="className" required />
+
+          <!-- ================= GAD7 ================= -->
+
+          <h3>Kuesioner GAD-7 (Tingkat Kecemasan)</h3>
+
+          <div id="gad7"></div>
+
+          <!-- ================= PHQ9 ================= -->
+
+          <h3>Kuesioner PHQ-9 (Tingkat Depresi)</h3>
+
+          <div id="phq9"></div>
+
+          <!-- ================= ROSENBERG ================= -->
+
+          <h3>Kuesioner Rosenberg Self-Esteem</h3>
+
+          <div id="rosenberg"></div>
+
+          <!-- ================= FAKTOR TAMBAHAN ================= -->
+
+          <h3>Faktor Tambahan</h3>
+
+          <label>Kualitas Tidur</label>
+          <input type="range" id="sleep_quality" min="0" max="5" />
+
+          <label>Beban Studi</label>
+          <input type="range" id="study_load" min="0" max="5" />
+
+          <label>Tekanan Teman Sebaya</label>
+          <input type="range" id="peer_pressure" min="0" max="5" />
+
+          <label>Bullying</label>
+          <input type="range" id="bullying" min="0" max="5" />
+
+          <label>Dukungan Sosial</label>
+          <input type="range" id="social_support" min="0" max="3" />
+
+          <br />
+
+          <button type="submit" class="submit-btn">Kirim Kuesioner</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= PORTAL GURU ================= -->
+
+    <section id="teacher" class="page">
+      <!-- ================= LOGIN ================= -->
+
+      <div id="loginBox" class="login-box">
+        <h2>Login Guru</h2>
+
+        <label>Username</label>
+        <input type="text" id="username" />
+
+        <label>Password</label>
+        <input type="password" id="password" />
+
+        <button onclick="login()" class="login-btn">Login</button>
+      </div>
+
+      <!-- ================= DASHBOARD ================= -->
+
+      <div id="dashboard" style="display: none">
+        <h2>Dashboard Guru</h2>
+
+        <div class="stats-container">
+          <div class="stat-box">
+            <h3>Total Siswa</h3>
+            <p id="totalStudents">0</p>
+          </div>
+
+          <div class="stat-box">
+            <h3>Stress Rendah</h3>
+            <p id="lowStress">0</p>
+          </div>
+
+          <div class="stat-box">
+            <h3>Stress Sedang</h3>
+            <p id="moderateStress">0</p>
+          </div>
+
+          <div class="stat-box">
+            <h3>Stress Tinggi</h3>
+            <p id="highStress">0</p>
+          </div>
+        </div>
+
+        <h3>Data Siswa</h3>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Kelas</th>
+              <th>Anxiety</th>
+              <th>Depression</th>
+              <th>Self Esteem</th>
+              <th>Stress Level</th>
+            </tr>
+          </thead>
+
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/config.js"></script>
+
+    <script src="js/utils.js"></script>
+
+    <script src="js/navigation.js"></script>
+
+    <script src="js/questionnaire.js"></script>
+
+    <script src="js/student.js"></script>
+
+    <script src="js/teacher.js"></script>
+  </body>
+</html>
